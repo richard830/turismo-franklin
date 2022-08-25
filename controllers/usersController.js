@@ -41,10 +41,19 @@ module.exports = {
         try {
             
             const user = req.body;
+
+           /*  const myUser = await User.findByEmail(email);
+            if (!myUser) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'La cedula no fue encontrado'
+                });
+            } */
             const data = await User.create(user);
             
+            
             await Rol.create(data.id, 1); // ROL POR DEFECTO (CLIENTE)
-
+             
             return res.status(201).json({
                 success: true,
                 message:'El registro se realizo correctamente, ahora inicia sesión',
@@ -77,6 +86,13 @@ module.exports = {
                     user.image = url;
                 }
             }
+
+            
+
+
+
+
+
 
             const data = await User.create(user);
             
@@ -163,6 +179,7 @@ module.exports = {
             const password = req.body.password;
 
             const myUser = await User.findByEmail(email);
+            
             
             if (!myUser) {
                 return res.status(401).json({

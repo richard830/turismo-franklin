@@ -36,6 +36,7 @@ User.findByUserId = (id) => {
         U.lastname,
         U.image,
         U.phone,
+        U.cedula,
         U.password,
         U.session_token,
         U.notification_token,
@@ -74,6 +75,7 @@ User.findByEmail = (email) => {
         U.lastname,
         U.image,
         U.phone,
+        U.cedula,
         U.password,
         U.session_token,
         U.notification_token,
@@ -102,6 +104,44 @@ User.findByEmail = (email) => {
     `
     return db.oneOrNone(sql, email);
 }
+User.cedula = (cedula) => {
+    const sql = `
+    SELECT
+        U.id,
+        U.email,
+        U.name,
+        U.lastname,
+        U.image,
+        U.phone,
+        U.cedula,
+        U.password,
+        U.session_token,
+        U.notification_token,
+		json_agg(
+			json_build_object(
+				'id,', R.id,
+				'name', R.name,
+				'image', R.image,
+				'route', R.route
+			)
+		) AS roles
+    FROM
+        users AS U
+	INNER JOIN
+		user_has_roles AS UHR
+	on
+		UHR.id_user = U.id
+	INNER JOIN
+		roles AS R
+	ON
+		R.id = UHR.id_rol
+    WHERE
+        U.cedula = $1
+	GROUP BY 
+		U.id
+    `
+    return db.oneOrNone(sql, cedula);
+}
 
 User.create = (user) => {
 
@@ -115,12 +155,13 @@ User.create = (user) => {
             name,
             lastname,
             phone,
+            cedula,
             image,
             password,
             created_at,
             updated_at
         )
-    VALUES($1, $2, $3 ,$4, $5, $6, $7, $8) RETURNING id    
+    VALUES($1, $2, $3 ,$4, $5, $6, $7, $8, $9) RETURNING id    
     `;
 
     return db.oneOrNone(sql, [
@@ -128,6 +169,7 @@ User.create = (user) => {
         user.name,
         user.lastname,
         user.phone,
+        user.cedula,
         user.image,
         user.password,
         new Date(),
@@ -143,8 +185,9 @@ User.update = (user) => {
         name = $2,
         lastname = $3,
         phone = $4,
-        image = $5,
-        updated_at = $6
+        phone = $5,
+        image = $6,
+        updated_at = $7
     WHERE
         id = $1    
     `;
@@ -154,6 +197,7 @@ User.update = (user) => {
         user.name,
         user.lastname,
         user.phone,
+        user.cedula,
         user.image,
         new Date()
     ]);

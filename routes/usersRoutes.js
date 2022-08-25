@@ -1,9 +1,11 @@
 const UsersController = require('../controllers/usersController');
+
 //const passport = require('passport');
 
 module.exports = (app, upload) => {
 
     // TRAER DATO
+    app.get('/api/users/getAll', UsersController.getAll);
     app.get('/api/users/getAll', UsersController.getAll);
     app.get('/api/users/findById/:id', UsersController.findById);
    // app.get('/api/users/findById/:id', passport.authenticate('jwt', {session: false}), UsersController.findById);
@@ -21,4 +23,5 @@ module.exports = (app, upload) => {
     // LA AUTENTICACION DE TOKENS NI SI QUIERA SE ABRE LOGIN..
     app.put('/api/users/updateNotificationToken', UsersController.updateNotificationToken);
 
+   
 } 
