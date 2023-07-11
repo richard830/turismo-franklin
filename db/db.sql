@@ -48,22 +48,44 @@ VALUES(
 );
 
 
-DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE users (
+DROP TABLE IF EXISTS products CASCADE;
+CREATE TABLE products(
 	id BIGSERIAL PRIMARY KEY,
-	email VARCHAR(255) NOT NULL UNIQUE,
-	name VARCHAR(255) NOT NULL,
-	lastname VARCHAR(255) NOT NULL,
+	name VARCHAR(180) NOT NULL UNIQUE,
+	description VARCHAR(255) NOT NULL,
+	price DECIMAL DEFAULT 0,
+	image1 VARCHAR(255) NULL,
+	image2 VARCHAR(255) NULL,
+	image3 VARCHAR(255) NULL,	
+	id_sub_category BIGINT NOT NULL,
+	id_category BIGINT NOT NULL,
+	address VARCHAR(255) NOT NULL,
 	phone VARCHAR(80) NOT NULL UNIQUE,
-	cedula VARCHAR(80) NOT NULL UNIQUE,
-	image VARCHAR(255) NULL,	
-	notification_token VARCHAR(255) NULL,	
-	password VARCHAR(255) NOT NULL,
-	is_available BOOLEAN NULL,
-	session_token VARCHAR(255) NULL,
+	whatsapp VARCHAR(255) NOT NULL,
+	location VARCHAR(255) NOT NULL,
 	created_at TIMESTAMP(0) NOT NULL,
-	updated_at TIMESTAMP(0) NOT NULL
+	updated_at TIMESTAMP(0) NOT NULL,
+	FOREIGN KEY(id_sub_category) REFERENCES sub_categories(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+
 );
+
+-- DROP TABLE IF EXISTS users CASCADE;
+-- CREATE TABLE users (
+-- 	id BIGSERIAL PRIMARY KEY,
+-- 	email VARCHAR(255) NOT NULL UNIQUE,
+-- 	name VARCHAR(255) NOT NULL,
+-- 	lastname VARCHAR(255) NOT NULL,
+-- 	phone VARCHAR(80) NOT NULL UNIQUE,
+-- 	cedula VARCHAR(80) NOT NULL UNIQUE,
+-- 	image VARCHAR(255) NULL,	
+-- 	notification_token VARCHAR(255) NULL,	
+-- 	password VARCHAR(255) NOT NULL,
+-- 	is_available BOOLEAN NULL,
+-- 	session_token VARCHAR(255) NULL,
+-- 	created_at TIMESTAMP(0) NOT NULL,
+-- 	updated_at TIMESTAMP(0) NOT NULL
+-- );
 
 
 DROP TABLE IF EXISTS user_has_roles CASCADE;
@@ -82,24 +104,39 @@ CREATE TABLE categories (
 	id BIGSERIAL PRIMARY KEY,
 	name VARCHAR(180) NOT NULL UNIQUE,
 	description VARCHAR(255) NOT NULL,
+	icon VARCHAR(255) NOT NULL,
 	created_at TIMESTAMP(0) NOT NULL,
 	updated_at TIMESTAMP(0) NOT NULL
 );
 
-DROP TABLE IF EXISTS products CASCADE;
-CREATE TABLE products(
+DROP TABLE IF EXISTS sub_categories CASCADE;
+CREATE TABLE sub_categories (
 	id BIGSERIAL PRIMARY KEY,
 	name VARCHAR(180) NOT NULL UNIQUE,
 	description VARCHAR(255) NOT NULL,
-	price DECIMAL DEFAULT 0,
-	image1 VARCHAR(255) NULL,
-	image2 VARCHAR(255) NULL,
-	image3 VARCHAR(255) NULL,
 	id_category BIGINT NOT NULL,
 	created_at TIMESTAMP(0) NOT NULL,
 	updated_at TIMESTAMP(0) NOT NULL,
 	FOREIGN KEY(id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+-- DROP TABLE IF EXISTS products CASCADE;
+-- CREATE TABLE products(
+-- 	id BIGSERIAL PRIMARY KEY,
+-- 	name VARCHAR(180) NOT NULL UNIQUE,
+-- 	description VARCHAR(255) NOT NULL,
+-- 	price DECIMAL DEFAULT 0,
+-- 	image1 VARCHAR(255) NULL,
+-- 	image2 VARCHAR(255) NULL,
+-- 	image3 VARCHAR(255) NULL,
+-- 	id_category BIGINT NOT NULL,
+-- 	id_sub_categories BIGINT NOT NULL,
+-- 	created_at TIMESTAMP(0) NOT NULL,
+-- 	updated_at TIMESTAMP(0) NOT NULL,
+-- 	FOREIGN KEY(id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE,
+-- 	FOREIGN KEY(id_sub_categories) REFERENCES sub_categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+-- );
+
 
 DROP TABLE IF EXISTS address CASCADE;
 CREATE TABLE address(

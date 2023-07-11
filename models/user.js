@@ -104,45 +104,80 @@ User.findByEmail = (email) => {
     `
     return db.oneOrNone(sql, email);
 }
-User.cedula = (cedula) => {
-    const sql = `
-    SELECT
-        U.id,
-        U.email,
-        U.name,
-        U.lastname,
-        U.image,
-        U.phone,
-        U.cedula,
-        U.password,
-        U.session_token,
-        U.notification_token,
-		json_agg(
-			json_build_object(
-				'id,', R.id,
-				'name', R.name,
-				'image', R.image,
-				'route', R.route
-			)
-		) AS roles
-    FROM
-        users AS U
-	INNER JOIN
-		user_has_roles AS UHR
-	on
-		UHR.id_user = U.id
-	INNER JOIN
-		roles AS R
-	ON
-		R.id = UHR.id_rol
-    WHERE
-        U.cedula = $1
-	GROUP BY 
-		U.id
-    `
-    return db.oneOrNone(sql, cedula);
-}
 
+
+
+User.Obtenercedula = (cedula) =>{
+    const sql = `SELECT  u.id, u.email, u.name, u.lastname, u.phone, u.cedula, 
+                    u.image, u.password, u.session_token,
+                    json_agg(
+                        json_build_object(
+                        'id', r.id,
+                        'name', r.name,
+                        'image', r.image,
+                        'route', r.route
+                    )) 
+                    AS roles FROM users AS u
+                    INNER JOIN user_has_roles AS uhr
+                    ON
+                    uhr.id_user = u.id
+                    INNER JOIN 
+                    roles AS r
+                    ON
+                    r.id = uhr.id_rol
+                    WHERE u.cedula = $1
+                    GROUP BY 
+                    u.id`; 
+         return db.oneOrNone(sql,cedula);
+     }
+
+User.ObtenerEmail = (email) =>{
+    const sql = `SELECT  u.id, u.email, u.name, u.lastname, u.phone, 
+                 u.image, u.password, u.session_token,
+                 json_agg(
+                     json_build_object(
+                       'id', r.id,
+                     'name', r.name,
+                     'image', r.image,
+                     'route', r.route
+                 )) 
+                 AS roles FROM users AS u
+                 INNER JOIN user_has_roles AS uhr
+                 ON
+                 uhr.id_user = u.id
+                 INNER JOIN 
+                 roles AS r
+                 ON
+                 r.id = uhr.id_rol
+                 WHERE u.email = $1
+                 GROUP BY 
+                 u.id`; 
+     return db.oneOrNone(sql,email);
+ }
+
+ User.Obtenerphone = (phone) =>{
+    const sql = `SELECT  u.id, u.email, u.name, u.lastname, u.phone, 
+                    u.image, u.password, u.session_token,
+                    json_agg(
+                        json_build_object(
+                        'id', r.id,
+                        'name', r.name,
+                        'image', r.image,
+                        'route', r.route
+                    )) 
+                    AS roles FROM users AS u
+                    INNER JOIN user_has_roles AS uhr
+                    ON
+                    uhr.id_user = u.id
+                    INNER JOIN 
+                    roles AS r
+                    ON
+                    r.id = uhr.id_rol
+                    WHERE u.phone = $1
+                    GROUP BY 
+                    u.id`; 
+         return db.oneOrNone(sql,phone);
+     }
 User.create = (user) => {
 
     const myPasswordHashed = crypto.createHash('md5').update(user.password).digest('hex');

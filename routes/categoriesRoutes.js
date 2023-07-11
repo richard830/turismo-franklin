@@ -1,4 +1,5 @@
 const CategoriesController = require('../controllers/categoriesController');
+
 //const passport = require('passport');
 
 module.exports = (app) => {

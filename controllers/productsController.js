@@ -19,9 +19,9 @@ module.exports = {
             success: false
           })
         }
-      },
+    },
 
-      async eliminarHotel (req, res, next) {
+    async eliminarHotel (req, res, next) {
         try {
           const id = req.params.id
     
@@ -43,7 +43,55 @@ module.exports = {
             message: 'Error al eliminar hotel'
           })
         }
-      },
+    },
+
+    async listProductsRecentAdd (req, res, next) {
+        try {
+          const data = await Product.listProductsRecentAdd();
+          // console.log(`Mi Data....: ${JSON.stringify(data)}`);
+          return res.status(201).json(data)
+        } catch (error) {
+          console.log(`Error ${error}`)
+          return res.status(201).json({
+            message: 'Error al Obtener los productos recien agregados',
+            error,
+            success: false
+          })
+        }
+    },
+    
+    async listProductsRandom (req, res, next) {
+        try {
+          const data = await Product.listProductsRandom();
+          // console.log(`Mi Data....: ${JSON.stringify(data)}`);
+          return res.status(201).json(data)
+        } catch (error) {
+          console.log(`Error ${error}`)
+          return res.status(201).json({
+            message: 'Error al Obtener los productos',
+            error,
+            success: false
+          })
+        }
+    },
+
+    async findBySubcategory(req, res, next) {
+        try {
+            const id_sub_category = req.params.id_sub_category; // CLIENTE
+            const data = await Product.findBySubcategory(id_sub_category);
+
+            return res.status(201).json(data);
+
+        }
+        catch (error) {
+            console.log(`Error ${error}`);
+                return res.status(501).json({
+                    message: `Error al listar los productos por categoria`,
+                    success: false,
+                    error: error
+                });
+        }
+    }, 
 
     async findByCategory(req, res, next) {
         try {
@@ -62,6 +110,7 @@ module.exports = {
                 });
         }
     }, 
+
     
     async findByCategoryAndProductName(req, res, next) {
         try {
@@ -81,6 +130,7 @@ module.exports = {
                 });
         }
     },
+    
 
     async create(req, res, next) {
 
@@ -109,13 +159,13 @@ module.exports = {
                         const url  = await storage(file, pathImage);
 
                         if (url !== undefined && url !== null) {
-                            if (inserts == 0) { //IMAGE 1
+                             if (inserts == 0) { //IMAGE 1
                                 product.image1 = url;
                             }
                             else if(inserts == 1) { //IMAGE 2
                                 product.image2 = url;
                             }
-                            else if(inserts == 2) { //IMAGE 3
+                            else if(inserts == 2 ) { //IMAGE 3
                                 product.image3 = url;
                             }
                         }

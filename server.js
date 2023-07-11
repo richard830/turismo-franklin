@@ -30,6 +30,7 @@ const upload = multer({
 */
 const users = require('./routes/usersRoutes');
 const categories = require('./routes/categoriesRoutes');
+const subCategories = require('./routes/subCategoriesRoutes');
 const products = require('./routes/productsRoutes');
 const address = require('./routes/addressRoutes');
 const orders = require('./routes/ordersRoutes');
@@ -54,7 +55,7 @@ require('./config/passport')(passport);
 
 app.disable('x-powered-by');
 
-app.set('port', port,  g );
+app.set('port', port, /*  g  */);
 
 /*
 * LLAMANDO A LAS RUTAS
@@ -62,17 +63,18 @@ app.set('port', port,  g );
 
 users(app, upload);
 categories(app);
+subCategories(app);
 address(app, upload);
 orders(app);
 products(app, upload);
 
- /*  server.listen(3000, '192.168.1.15' || 'localhost', function(){
+   server.listen(3000, '192.168.1.8' || 'localhost', function(){
     console.log(' Aplicacion de NodeJS ' + port + ' Iniciada...')
-}); */  
+});   
 
-  server.listen(port, function(){
+ /*  server.listen(port, function(){
     console.log('Aplicaion de Nodejs corriendo en '+ port + ' Iniciada...')
-})  
+})  */ 
 
 app.get ('/', (req, res )=>{
     res.send('Mi backend Delivery Att tu Papá')

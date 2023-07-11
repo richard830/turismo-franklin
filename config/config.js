@@ -11,7 +11,7 @@ types.setTypeParser(1114, function(stringValue){
 });
 
 const databaseConfig = {
-     'host': 'ec2-54-86-106-48.compute-1.amazonaws.com',
+   /*   'host': 'ec2-54-86-106-48.compute-1.amazonaws.com',
     'port': 5432,
     'database': 'dfp4iqmpcofh37',
     'user': 'zfeaavhkgtfwkm',
@@ -24,14 +24,14 @@ const databaseConfig = {
 
     rejectUnauthorized: false,
       requestCert: true,
-      agent: false  
+      agent: false   */
 
 
-   /*  'host': '127.0.0.1',
+   'host': '127.0.0.1',
     'port': 5432,
-    'database': 'hoteles',
+    'database': 'db_quenetur',
     'user': 'postgres',
-    'password': '12345' */  
+    'password': 'T3l3amaz0na5'   
 };
 
 const db = pgp(databaseConfig);
