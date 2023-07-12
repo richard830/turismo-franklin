@@ -11,11 +11,11 @@ types.setTypeParser(1114, function(stringValue){
 });
 
 const databaseConfig = {
-   /*   'host': 'ec2-54-86-106-48.compute-1.amazonaws.com',
-    'port': 5432,
-    'database': 'dfp4iqmpcofh37',
-    'user': 'zfeaavhkgtfwkm',
-    'password': '1a8207e1e11f859bc5b79762219e0c7e32a6282eaf5795a92985e5391398ab73', 
+    'host': 'containers-us-west-79.railway.app',
+    'port': 6452,
+    'database': 'railway',
+    'user': 'postgres',
+    'password': 'G4mfA9BUr80obCVYir4n', 
      ssl: true,
      dialect: 'postgres',
     dialectOptions: {
@@ -24,14 +24,14 @@ const databaseConfig = {
 
     rejectUnauthorized: false,
       requestCert: true,
-      agent: false   */
+      agent: false   
 
 
-   'host': '127.0.0.1',
+    /*   'host': '127.0.0.1',
     'port': 5432,
     'database': 'db_quenetur',
     'user': 'postgres',
-    'password': 'T3l3amaz0na5'   
+    'password': 'T3l3amaz0na5'  */ 
 };
 
 const db = pgp(databaseConfig);
