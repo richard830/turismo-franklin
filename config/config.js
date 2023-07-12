@@ -24,7 +24,7 @@ const databaseConfig = {
 
     rejectUnauthorized: false,
       requestCert: true,
-      agent: false   
+      agent: true   
 
 
     /*   'host': '127.0.0.1',
