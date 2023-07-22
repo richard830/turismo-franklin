@@ -36,7 +36,7 @@ const orders = require('./routes/ordersRoutes');
 
 const g = process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -70,13 +70,13 @@ orders(app);
 products(app, upload);
 
 
-server.listen(port, function() {
-    console.log('Aplicaion de Nodejs corriendo en ' + port + ' Iniciada...')
-})
+// server.listen(port, function() {
+//     console.log('Aplicaion de Nodejs corriendo en ' + port + ' Iniciada...')
+// })
 
-// server.listen(3000, '192.168.1.11' || 'localhost', function() {
-//     console.log(' Aplicacion de NodeJS ' + port + ' Iniciada...')
-// });
+server.listen(80, '172.26.3.211' || 'localhost', function() {
+    console.log(' Aplicacion de NodeJS corriendo en el puerto ' + port + ' Iniciada...')
+});
 
 
 
