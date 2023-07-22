@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -15,7 +14,7 @@ const serviceAccount = require('./serviceAccountKey.json');
 /**
  *  INICILIZAR FIREBASE ADMIN
  */
-  
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 })
@@ -26,8 +25,8 @@ const upload = multer({
 
 
 /*
-* RUTAS 
-*/
+ * RUTAS 
+ */
 const users = require('./routes/usersRoutes');
 const categories = require('./routes/categoriesRoutes');
 const subCategories = require('./routes/subCategoriesRoutes');
@@ -35,7 +34,7 @@ const products = require('./routes/productsRoutes');
 const address = require('./routes/addressRoutes');
 const orders = require('./routes/ordersRoutes');
 
-const g= process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const g = process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const port = process.env.PORT || 3000;
 
@@ -55,11 +54,13 @@ require('./config/passport')(passport);
 
 app.disable('x-powered-by');
 
-app.set('port', port,  g );
+app.set('port', port,
+    g
+);
 
 /*
-* LLAMANDO A LAS RUTAS
-*/
+ * LLAMANDO A LAS RUTAS
+ */
 
 users(app, upload);
 categories(app);
@@ -68,15 +69,18 @@ address(app, upload);
 orders(app);
 products(app, upload);
 
-server.listen(port, function(){
-    console.log('Aplicaion de Nodejs corriendo en '+ port + ' Iniciada...')
-})   
 
- /*  server.listen(3000, '192.168.1.8' || 'localhost', function(){
-    console.log(' Aplicacion de NodeJS ' + port + ' Iniciada...')
-});  */ 
+server.listen(port, function() {
+    console.log('Aplicaion de Nodejs corriendo en ' + port + ' Iniciada...')
+})
 
-app.get ('/', (req, res )=>{
+// server.listen(3000, '192.168.1.11' || 'localhost', function() {
+//     console.log(' Aplicacion de NodeJS ' + port + ' Iniciada...')
+// });
+
+
+
+app.get('/', (req, res) => {
     res.send('Mi backend Quenetur att NetCriTech')
 })
 
